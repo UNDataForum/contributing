@@ -1,0 +1,15 @@
+{
+  "name": "@undataforum/contributing",
+  "version": "0.0.0",
+  "description": "Contribution guidelines for @UNDataForum repositories",
+  "author": "Thilo Maier <maier@un.org>",
+  "license": "MIT",
+  "scripts": {
+    "start": "mdx-go site",
+    "build": "mdx-go build site -d dist"
+  },
+  "devDependencies": {
+    "mdx-go": "^1.1.6"
+  },
+  "private": true
+}

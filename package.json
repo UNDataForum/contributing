@@ -5,7 +5,7 @@
   "author": "Thilo Maier <maier@un.org>",
   "license": "MIT",
   "scripts": {
-    "start": "mdx-go site",
+    "start": "mdx-go -p 8000 site",
     "build": "mdx-go build site -d dist"
   },
   "devDependencies": {

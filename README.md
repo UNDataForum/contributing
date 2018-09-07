@@ -8,7 +8,7 @@ In order to author content run
 
 or
 
-    docker run --rm -it -v ${pwd}:/contributing -w /contributing -p 8080:8080 mhart/alpine-node:8 yarn start
+    docker run --rm -it -v ${pwd}:/contributing -w /contributing -e CHOKIDAR_USEPOLLING=true -p 8000:8000 mhart/alpine-node:8 yarn start
 
 and author away with [MDX](https://mdxjs.com/).
 

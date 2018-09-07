@@ -82,14 +82,16 @@ docker run --rm -it -v ${pwd}:/project -w /project mhart/alpine-node:8 yarn
 from the project root. This spins up an emphemeral container that maps the project root to `/project`, sets it as working directory and then runs `yarn`. For yarn commands requiring access to a specific port, such when running `yarn start` in most repositories, add the `-p` option to map the port of the container to a port on your host machine:
 
 ```powershell
-docker run --rm -it -v ${pwd}:/project -w /project -p 8000:8000 mhart/alpine-node:8 yarn start
+docker run --rm -it -v ${pwd}:/project -w /project -e CHOKIDAR_USEPOLLING=true -p 8000:8000 mhart/alpine-node:8 yarn start
 ```
+
+Setting `CHOKIDAR_USEPOLLING` to `true` with option `-e` ensures that HMR works within the docker container (see [here](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#npm-start-doesnt-detect-changes)).
 
 Typing out this command is a hassle compared to just typing `yarn start` as you would if you were developing with Yarn installed on your host machine. Create a Powershell alias. Create file `%UserProfile%\Documents\WindowsPowerShell\profile.ps1` and add the following code:
 
 ```powershell
 function Docker-Yarn {
-  docker run --rm -it -v ${pwd}:/project -w /project -p 8000:8000 mhart/alpine-node:8 yarn $args
+  docker run --rm -it -v ${pwd}:/project -w /project -e CHOKIDAR_USEPOLLING=true -p 8000:8000 mhart/alpine-node:8 yarn $args
 }
 New-Alias yarn Docker-Yarn
 ```

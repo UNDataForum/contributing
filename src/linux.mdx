@@ -1,0 +1,133 @@
+import { Head } from 'mdx-go'
+
+export const name = 'Developing on Linux'
+
+<Head>
+  <title>{name}</title>
+</Head>
+
+# Developing on Linux
+
+With [Linux support being rolled out to many Chromebooks](https://www.theverge.com/circuitbreaker/2018/6/28/17514390/chromebooks-intel-apollo-lake-linux-support), developing on Linux has become a viable alternative to developing on a Mac. Even if you prefer developing on Windows 10, all the [Developing on Windows](/windows) guide does is help you prepare Windows 10 for [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) before it sends you back to this guide. This guide is good for any [Debian](https://www.debian.org/) flavored distributions, including [Ubuntu](https://www.ubuntu.com/).
+
+## Tooling
+
+### Midnight Commander
+
+[Midnight Commander (MC)](https://midnight-commander.org/) is handy for Linux users who are not yet expert Linux command-line users. Install MC with `apt`:
+
+```bash
+sudo apt install mc
+```
+
+The run `mc`. If you get error
+
+```bash
+Cannot create /home/<username>/.cache/mc directory
+```
+
+you need to change permissions of your `~/.cache` directory with `chown`:
+
+```bash
+sudo chown -R <username>:<username> ~/.cache/
+```
+
+### Git
+
+Run
+
+```bash
+sudo apt install git
+```
+
+to install [Git](https://git-scm.com/). Git requires a global `.gitconfig` file in your `~/` with some basic configurations. To get proper credits for your commits, configure your name and your email address:
+
+```bash
+git config --global user.name "<your_name>"
+git config --global user.email "<your_email>"
+```
+
+Your `user.email` is normally your GitHub email. You can also use an alternate email, but then you need to add it as secondary email to your GitHub account, see https://github.com/settings/emails.
+
+Install [GNU nano](https://www.nano-editor.org/)
+
+```bash
+sudo apt install nano
+```
+
+and add it as editor to edit commit messages:
+
+```bash
+git config --global core.editor "nano"
+```
+
+In order to enable caching authentication tokens, run
+
+```bash
+git config --global credential.helper cache
+```
+
+There is no need to install a Git client. Use [Visual Studio Code's built in Git support](https://code.visualstudio.com/docs/editor/versioncontrol) in conjunction with using Git on the command-line for advanced commands. Add the following alias to get a polished tree view on the command-line:
+
+```bash
+git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --exclude=*gh-pages --all"
+```
+
+Command `git lg` (instead of Git's `git log`) then displays a nicely formatted tree vie of all commits. 
+
+Finally, you can check your configuration with
+
+```bash
+git config --list
+```
+
+### Node Version Manager
+
+[Node Version Manager (NVM)](https://github.com/creationix/nvm) is a tool to manage multiple versions of [Node](https://nodejs.org/en/). It allows you to add file `.nvmrc` file in each project. NVM reads this file to figure out which Node version to use. NVM is installed vi installation script, not via `apt`.
+Go to https://github.com/creationix/nvm, copy and run the the latest version of the install script, which looks like this (probably with a later version number):
+
+```bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+```
+
+Restart your terminal and run `nvm --version` to verify that NVM is working. Run
+
+```bash
+nvm install stable
+```
+
+to install latest stable Node and to make it default. Runninge
+
+```bash
+node --version
+```
+
+should return the verison number of latest Node stable.
+
+### Yarn
+
+[Yarn](https://yarnpkg.com) is a more user-friendly alternative to Node's native package manager `npm`. Run
+
+```bash
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+```
+
+to add the Yarn package repository as source for `apt`. Then run
+
+```bash
+sudo apt-get install --no-install-recommends yarn
+```
+
+to install Yarn. The `--no-install-recommends` option tells the installer to omit installing Node, which you installed via NVM. Verify that Yarn is installed by running
+
+```bash
+yarn --version
+```
+
+## Editor
+
+**If you are developing on Windows 10 with Windows Subsystem for Linux, ignore this section.**
+
+Install VSCode via `.deb` package as described in the [Visual Studio Code on Linux](https://code.visualstudio.com/docs/setup/linux) guide. This adds the VSCode to `apt` so that you receive future update via `apt`.
+

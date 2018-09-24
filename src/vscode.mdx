@@ -1,0 +1,36 @@
+import { Head } from 'mdx-go'
+
+export const name = 'VSCode Configuration'
+
+<Head>
+  <title>{name}</title>
+</Head>
+
+# VSCode Configuration
+
+## Recommended settings for all OSs
+
+| Setting | Value | Comment |
+|:--------|:------|:--------|
+| `editor.formatOnSave` | `true` | Turn on format on save. Required for Prettier plugin. |
+| `files.autoSave` | `onFocusChange` | Save files as soon as editor looses focus. |
+| `telemetry.enableCrashReporter` | `false` | Disable crash reporter. |
+| `telemetry.enableTelemetry` | `false` | Disable telemetry. |
+
+## Required settings for Windows
+
+| Setting | Value | Comment |
+|:--------|:------|:--------|
+| `files.eol` | `\n` | Change line endings to LF for WSL compatibility. |
+| `git.path` | `C:\\\\path\\\\to\\\\wslgit.exe` | Ensure VSCode uses WSL's Git. |
+| `terminal.integrated.shell.windows` | `C:\\\\WINDOWS\\\\System32\\\\bash.exe` | Use WSL (Ubuntu's bash) as terminal. |
+
+## Recommended extensions
+
+| Extension | Comment |
+|:----------|:--------|
+| [Bracket Pair Colorizer](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer) | Nested brackets visualizer. |
+| [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) | JS linting support. |
+| [MDX](https://marketplace.visualstudio.com/items?itemName=silvenon.mdx) | MDX support. |
+| [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) | Code formatter |
+| [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=jpoissonnier.vscode-styled-components) | [styled-components](https://www.styled-components.com) support. |

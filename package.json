@@ -5,11 +5,14 @@
   "author": "Thilo Maier <maier@un.org>",
   "license": "MIT",
   "scripts": {
-    "start": "mdx-go -p 8000 site",
-    "build": "mdx-go build site -d dist"
+    "start": "mdx-go src",
+    "build": "rimraf dist && mdx-go build src -d dist"
   },
-  "devDependencies": {
-    "mdx-go": "^1.1.6"
+  "dependencies": {
+    "mdx-go": "^1.1.11",
+    "react": "^16.5.2",
+    "rimraf": "^2.6.2",
+    "styled-components": "^4.0.0-beta.8-unpure"
   },
   "private": true
 }

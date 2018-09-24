@@ -1,0 +1,55 @@
+import { Head } from 'mdx-go'
+
+export const name = 'Developing on Windows'
+
+<Head>
+  <title>{name}</title>
+</Head>
+
+# Developing on Windows
+
+Developing on Windows 10 is fully supported with [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10).  As a prerequisite, you need to ensure that you have local admin privileges.
+
+## Windows Subsystem for Linux
+
+The [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/about) is Microsoft's attempt to relieve the pains that developers working with a non-Microsoft on Windows had for many nears. WSL basically gives a Linux development experience to Windows users.
+
+Your starting point is the [WSL Windows 10 Installation Guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10) in which you find instructions how to check if your Windows 10 is compatible. If you have access to the Microsoft Store, you can install Ubuntu 18.04 straight from the store.
+
+If you do not have access to the Microsoft Store, you need to follow [Manually download WSL distro packages](https://docs.microsoft.com/en-us/windows/wsl/install-manual) to download Ubuntu 18.04. When the download is complete, you need to continue with [Windows Server Installation Guide](https://docs.microsoft.com/en-us/windows/wsl/install-on-server). Finally, you need to setup WSL as explained in [Initializing a newly installed distro](https://docs.microsoft.com/en-us/windows/wsl/initialize-distro).
+
+If at any point you have to roll back your WSL installation, it is not enough to delete the folder that contains the installation. Check for installed WSL distributions by running
+
+```powershell
+wslconfig.exe /list
+```
+
+Pick your distirubtion, e.g. `Ubuntu-18.04`. Run
+
+```powershell
+wslconfig.exe /u Ubuntu-18.04
+```
+
+to unregister. Now you can delete the folder containing the WSL distribution and start over.
+
+**At this point you have a Ubuntu 18.04 installation that you can access via the WSL terminal, but which is otherwise isolated from Windows 10.**
+
+## Tooling
+
+Now you can follow the steps in [Developing on Linux](/linux) to install all required tooling in your WSL Ubuntu 18.04.
+
+## VSCode
+
+All tooling runs in WSL, except you editor, which runs on Windows. Therefore, go ahead and install the windows version fo [VSCode](https://code.visualstudio.com/) on your Windows 10. Before you continue with [VSCode Configuration](/vscode), we need to integrate WSL into VSCode. Some tutorials suggest that it is necessary to install [Git for Windows](https://git-scm.com/download/win) to make Git work with VSCode in a WSL scenario. This is not necessary. We have Git already installed via WSL and all we need to is enable VSCode to use it.
+
+Download [WSLGit](https://github.com/andy-5/wslgit) and add this entry to VSCode's `settings.json`:
+
+```json
+{
+  "git.path": "C:\\PATH\\TO\\wslgit.exe"
+}
+```
+
+## Choosing the right working directory
+
+Your Windows home directory is `%USERPROFILE%`, which normally corresponds to `C:\\Users\\<username>`. In Linux your home directory is `/home/<username>`. Your WSL home directory and Windows home directory are not the same. This is crucial when cloning a repository with Git. If you just clone into `/home/<username>`, VSCode cannot access your project. This why WSL mounts all Windows system drives. `%USERPROFILE%` corresponds to `/mnt/c/Users/<username>`. If you clone in this directory (or better a subdirectory), VSCode can access your project.

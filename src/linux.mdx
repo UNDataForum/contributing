@@ -61,11 +61,13 @@ and add it as editor to edit commit messages:
 git config --global core.editor "nano"
 ```
 
-In order to enable caching authentication tokens, run
+In order to enable caching GitHub credentials, run
 
 ```bash
-git config --global credential.helper cache
+git config --global credential.helper 'cache --timeout 3600'
 ```
+
+to cache your credentials in memory for 1 hour. You can adjust the value in seconds to your preference. Note that if you have two-factor authentication activated for your GitHub account (which you should), you cannot use your GitHub password when prompted. You need to generate a personal access token.
 
 There is no need to install a Git client. Use [Visual Studio Code's built in Git support](https://code.visualstudio.com/docs/editor/versioncontrol) in conjunction with using Git on the command-line for advanced commands. Add the following alias to get a polished tree view on the command-line:
 

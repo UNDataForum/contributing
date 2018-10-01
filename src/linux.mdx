@@ -34,6 +34,8 @@ sudo chown -R <username>:<username> ~/.cache/
 
 ### Git
 
+#### Configuration
+
 Run
 
 ```bash
@@ -61,27 +63,46 @@ and add it as editor to edit commit messages:
 git config --global core.editor "nano"
 ```
 
-In order to enable caching GitHub credentials, run
-
-```bash
-git config --global credential.helper 'cache --timeout 3600'
-```
-
-to cache your credentials in memory for 1 hour. You can adjust the value in seconds to your preference. Note that if you have two-factor authentication activated for your GitHub account (which you should), you cannot use your GitHub password when prompted. You need to generate a personal access token.
-
-There is no need to install a Git client. Use [Visual Studio Code's built in Git support](https://code.visualstudio.com/docs/editor/versioncontrol) in conjunction with using Git on the command-line for advanced commands. Add the following alias to get a polished tree view on the command-line:
+There is no need to install a Git client. Use [Visual Studio Code's built in Git support](https://code.visualstudio.com/docs/editor/versioncontrol) in conjunction with Git on the command-line for advanced commands. Add the following alias to get a polished tree view on the command-line:
 
 ```bash
 git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --exclude=*gh-pages --all"
 ```
 
-Command `git lg` (instead of Git's `git log`) then displays a nicely formatted tree vie of all commits. 
+Command `git lg` (instead of Git's `git log`) then displays a nicely formatted tree view of all commits. 
 
 Finally, you can check your configuration with
 
 ```bash
 git config --list
 ```
+
+#### Authentication
+
+GitHub provides to options for authentication. You can authenticate with username and password or with a self generated SSH key. If you opt for username and password, you can cache your crednetials temporarily in memory, e.g.
+
+```bash
+git config --global credential.helper 'cache --timeout 3600'
+```
+
+caches your credentials for 1 hour. After the specified time in seconds has passed, you have to reauthenticate. With two-factor authentication active for your GitHub account (strongly recommended), you need to use a personal access token instead of your password you have to regenerate a new access token every time the credentials cache times out.
+
+Therefore, we recommend you generate and configure an SSH key as described next and authenticate to GitHub completely transparently with that key. Generating an SSH key is more upfront hassle, but saves you hassle thereafter.
+
+Generate your SSH key pair with
+
+```bash
+ssh-keygen -t rsa -b 4096 [-C <comment>]
+```
+
+Accept default settings and do not set a password. Add the following lines at the end of your `~/.bashrc`:
+
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+```
+
+This loads your private SSH key and makes it availalbe to Git fro authentication to GitHub whenever you open a terminal. The last step is to add your public key to GitHub by copying the content of file `~/.ssh/id_rsa.pub` to https://github.com/settings/keys.
 
 ### Node Version Manager
 

@@ -40,15 +40,27 @@ Now you can follow the steps in [Developing on Linux](/linux) to install all req
 
 ## VSCode
 
-All tooling runs in WSL, except you editor, which runs on Windows. Therefore, go ahead and install the windows version fo [VSCode](https://code.visualstudio.com/) on your Windows 10. Before you continue with [VSCode Configuration](/vscode), we need to integrate WSL into VSCode. Some tutorials suggest that it is necessary to install [Git for Windows](https://git-scm.com/download/win) to make Git work with VSCode in a WSL scenario. This is not necessary. We have Git already installed via WSL and all we need to is enable VSCode to use it.
+All tooling runs in WSL, except your editor, which runs on Windows. Therefore, go ahead and install the windows version fo [VSCode](https://code.visualstudio.com/) on your Windows 10. Before you continue with [VSCode Configuration](/vscode), we need to integrate WSL with VSCode by adding the follwoing settings:
 
-Download [WSLGit](https://github.com/andy-5/wslgit) and add this entry to VSCode's `settings.json`:
+| Setting | Value | Comment |
+|:--------|:------|:--------|
+| `files.eol` | `\n` | Change line endings to LF for WSL compatibility. |
+| `terminal.integrated.shell.windows` | `C:\\\\WINDOWS\\\\System32\\\\bash.exe` | Use WSL (Ubuntu bash) as terminal. |
 
-```json
-{
-  "git.path": "C:\\\\PATH\\\\TO\\\\wslgit.exe"
-}
-```
+You can now run Git in VSCode's terminal including authentication to GitHub as described in the [Developing on Linux](/linux) guide. However, at the moment there is no good way to make WSL's Git work with VSCode on Windows. This [GitHub issue](https://github.com/Microsoft/vscode/issues/9502) discusses different workarounds, all of which come with their own set of troubles.
+
+To make VSCode's Git integration work on Windows, you need to install [Git for Windows](https://git-scm.com/download/win):
+
+- In the **Select Components** screen select *Check daily for Git for Windows updates* only.
+- In the **Choosing the default editor used by Git** screen select *Use Visual Studio Code as Git's default editor*.
+- In the **Adjusting your PATH environment** screen select *Use Git from the Windows Command Prompt*.
+- In the **Choosing HTTPS transport backend** screen select *Use the native Windows Secure Channel library*.
+- In the **Configuring line ending conversions** screen select *Checkout as-is, commit Unix-style line endings*.
+- In the **Configuring the terminal emulator to use with Git Bash** screen select *Use MinTTY*.
+- In the **Configuring extra options** screen do not select *Enable Git Credential Manager*.
+- Do not select any experimental options on the **Configuring experimental options** screen.
+
+The only purpose of Git for Windows is to make VSCode's Git integration work. Never run Git commands in a Widows shell, only in a WSL terminal.
 
 ## Choosing the right working directory
 

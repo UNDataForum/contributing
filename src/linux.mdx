@@ -102,7 +102,24 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
 ```
 
-This loads your private SSH key and makes it availalbe to Git fro authentication to GitHub whenever you open a terminal. The last step is to add your public key to GitHub by copying the content of file `~/.ssh/id_rsa.pub` to https://github.com/settings/keys.
+This loads your private SSH key and makes it availalbe to Git for authentication to GitHub whenever you open a terminal. If you are on Windows Subsystem for Linux, you need to add these lines at the end of your `~/.bashrc` instead of above lines
+
+```bash
+# Start ssh agent
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent > ~/.ssh-agent-env
+fi
+# or load existing ssh-agent environment
+if [[ "$SSH_AGENT_PID" == "" ]]; then
+    eval "$(<~/.ssh-agent-env)" > /dev/null
+fi
+
+ssh-add ~/.ssh/id_rsa > /dev/null
+```
+
+This is to enable Git integration into VSCode on Windows with `wslgit.exe` as discussed [here](https://github.com/andy-5/wslgit/issues/16).
+
+The last step is to add your public key to GitHub by copying the content of file `~/.ssh/id_rsa.pub` to https://github.com/settings/keys.
 
 ### Node Version Manager
 
@@ -150,7 +167,7 @@ yarn --version
 
 ## Editor
 
-**If you are developing on Windows 10 with Windows Subsystem for Linux, ignore this section.**
+**If you are on Windows Subsystem for Linux, ignore this section.**
 
 Install VSCode via `.deb` package as described in the [Visual Studio Code on Linux](https://code.visualstudio.com/docs/setup/linux) guide. This adds the VSCode to `apt` so that you receive future update via `apt`.
 

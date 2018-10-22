@@ -6,13 +6,14 @@
   "license": "MIT",
   "scripts": {
     "start": "mdx-go src",
-    "build": "rimraf dist && mdx-go build src -d dist && copyfiles ./CNAME dist"
+    "build": "rm -rf dist && mdx-go build src -d dist && copyfiles ./CNAME dist",
+    "deploy": "npm run build &&  gh-pages -d dist -m 'Deploy to GitHub Pages'"
   },
   "dependencies": {
     "copyfiles": "^2.1.0",
+    "gh-pages": "^2.0.1",
     "mdx-go": "^1.1.11",
     "react": "^16.5.2",
-    "rimraf": "^2.6.2",
     "styled-components": "^4.0.0-beta.8-unpure"
   },
   "private": true

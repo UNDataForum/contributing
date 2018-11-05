@@ -34,15 +34,19 @@ sudo chown -R <username>:<username> ~/.cache/
 
 ### Git
 
-#### Configuration
+#### Installation
 
-Run
+To install the latest stabel version of [Git](https://git-scm.com/), add the following repository:
 
 ```bash
-sudo apt install git
+sudo add-apt-repository ppa:git-core/ppa
+sudo apt update
+suod apt install git
 ```
 
-to install [Git](https://git-scm.com/). Git requires a global `.gitconfig` file in your `~/` with some basic configurations. To get proper credits for your commits, configure your name and your email address:
+#### Configuration
+
+Git requires a global `.gitconfig` file in your `~/` with some basic configurations. To get proper credits for your commits, configure your name and your email address:
 
 ```bash
 git config --global user.name "<your_name>"

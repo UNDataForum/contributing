@@ -169,6 +169,15 @@ to install Yarn. The `--no-install-recommends` option tells the installer to omi
 yarn --version
 ```
 
+On WSL you need to add the result of `yarn global bin` to your `PATH` variable to make `yarn global add` work. Add the following lines to your `~/.profile`:
+
+```bash
+# set PATH so it includes user's Yarn bin if it exists
+if [ -d "$HOME/.yarn/bin" ] ; then
+    PATH="$HOME/.yarn/bin:$PATH"
+fi    
+```
+
 ## Editor
 
 **If you are on Windows Subsystem for Linux, ignore this section.**

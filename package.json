@@ -1,20 +1,37 @@
 {
   "name": "@undataforum/contributing",
   "version": "0.0.0",
-  "description": "Contribution guidelines for @UNDataForum repositories",
+  "description": "Contribution guidelines for @UNDataForum GitHub repositories",
   "author": "Thilo Maier <maier@un.org>",
   "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && pretty-quick --staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": "eslint"
+  },
   "scripts": {
-    "start": "mdx-go src",
-    "build": "rm -rf dist && mdx-go build src -d dist && copyfiles ./CNAME dist",
-    "deploy": "npm run build &&  gh-pages -d dist -m 'Deploy to GitHub Pages'"
+    "start": "gatsby develop",
+    "build": "rm -rf ./public && gatsby build",
+    "deploy": "npm run build &&  gh-pages -d public -m 'Deploy to GitHub Pages'",
+    "format": "pretty-quick",
+    "inspect": "node --inspect-brk node_modules/.bin/gatsby develop"
   },
   "dependencies": {
-    "copyfiles": "^2.1.0",
+    "gatsby": "^2.0.68",
     "gh-pages": "^2.0.1",
-    "mdx-go": "^1.1.11",
     "react": "^16.5.2",
-    "styled-components": "^4.0.0-beta.8-unpure"
+    "react-dom": "^16.6.3"
+  },
+  "devDependencies": {
+    "@mdotasia/eslint-config": "^0.5.0",
+    "eslint": "^5.10.0",
+    "husky": "^1.2.1",
+    "lint-staged": "^8.1.0",
+    "prettier": "^1.15.3",
+    "pretty-quick": "^1.8.0"
   },
   "private": true
 }

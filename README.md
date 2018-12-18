@@ -1,4 +1,4 @@
-# Contribution Guidelines for [@UNDataForum](https://github.com/UNDataForum)
+# Contributing to [@UNDataForum](https://github.com/UNDataForum) repositories
 
 In order to author content run
 

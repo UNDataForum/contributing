@@ -1,6 +1,6 @@
-import { Head } from 'mdx-go'
+import { Head } from "mdx-go";
 
-export const name = 'Developing on Linux'
+export const name = "Developing on Linux";
 
 <Head>
   <title>{name}</title>
@@ -41,7 +41,7 @@ To install the latest stabel version of [Git](https://git-scm.com/), add the fol
 ```bash
 sudo add-apt-repository ppa:git-core/ppa
 sudo apt update
-suod apt install git
+sudo apt install git
 ```
 
 #### Configuration
@@ -73,7 +73,7 @@ There is no need to install a Git client. Use [Visual Studio Code's built in Git
 git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --exclude=*gh-pages --all"
 ```
 
-Command `git lg` (instead of Git's `git log`) then displays a nicely formatted tree view of all commits. 
+Command `git lg` (instead of Git's `git log`) then displays a nicely formatted tree view of all commits.
 
 Finally, you can check your configuration with
 
@@ -175,7 +175,7 @@ On WSL you need to add the result of `yarn global bin` to your `PATH` variable t
 # set PATH so it includes user's Yarn bin if it exists
 if [ -d "$HOME/.yarn/bin" ] ; then
     PATH="$HOME/.yarn/bin:$PATH"
-fi    
+fi
 ```
 
 ## Editor
@@ -183,4 +183,3 @@ fi
 **If you are on Windows Subsystem for Linux, ignore this section.**
 
 Install VSCode via `.deb` package as described in the [Visual Studio Code on Linux](https://code.visualstudio.com/docs/setup/linux) guide. This adds the VSCode to `apt` so that you receive future update via `apt`.
-
